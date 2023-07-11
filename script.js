@@ -20,8 +20,20 @@ function createCard(taskInfo) {
   const taskTitle = document.createElement("span");
   const taskDescription = document.createElement("p");
 
+
+  if (taskInfo.type === "Urgente") {
+    taskTitle.classList.add('span-urgent')
+
+  } else if (taskInfo.type === "Normal") {
+    taskTitle.classList.add('span-normal')
+
+  } else if (taskInfo.type === "Prioritário") {
+    taskTitle.classList.add('span-priority')
+  }
+
+
   // Adicionando o titulo da tarefa como texto do paragrafo
-  p.innerText = taskInfo.titulo;
+  taskDescription.innerText = taskInfo.title;
 
   // Adicionando span e paragrafo a div
   taskCardContent.appendChild(taskTitle);
@@ -40,19 +52,44 @@ function createCard(taskInfo) {
   return taskCardItem;
 }
 
+
+
 function renderElements(taskList) {
   const htmlList = document.querySelector(".tasks");
   htmlList.innerHTML = "";
 
   // Ajustar a lógica
-  let card = createCard(taskList[0]);
-  htmlList.appendChild(card);
-
-  card = createCard(taskList[1]);
-  htmlList.appendChild(card);
-
-  card = createCard(taskList[2]);
-  htmlList.appendChild(card);
+  for (let i = 0; i < taskList.length; i++) {
+    let card = createCard(taskList[i]);
+    htmlList.appendChild(card)
+  }
 }
 
 renderElements(tasks);
+
+const valor = {
+  title: '',
+  type: '',
+
+}
+
+const buttonAdd = document.querySelector('#btnSubmit');
+
+buttonAdd.addEventListener('click', function (event) {
+
+  event.preventDefault();
+  const valueImput = event.target.form.elements.input_title.value
+  const valueSelect = event.target.form.elements.input_priority.value
+
+  valor.title = valueImput;
+  valor.type = valueSelect;
+
+  tasks.push(valor);
+  renderElements(tasks);
+  //console.log(event)
+  //event.target.form.elements.input_title.value
+  //event.target.form.elements.input_priority.value
+})
+
+
+
