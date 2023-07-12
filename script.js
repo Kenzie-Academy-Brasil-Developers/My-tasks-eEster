@@ -42,6 +42,20 @@ function createCard(taskInfo) {
   // Criando botão para deletar tarefa
   const buttonDelete = document.createElement("button");
 
+  buttonDelete.addEventListener('click', function () {
+
+    for (let i = 0; i < tasks.length; i++) {
+    
+    
+      const index =tasks.indexOf(taskInfo);
+
+      tasks.splice(index,i);
+
+      renderElements(tasks);
+    }
+  })
+
+
   // Adicionando icone ao botão
   buttonDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
 
@@ -51,8 +65,6 @@ function createCard(taskInfo) {
 
   return taskCardItem;
 }
-
-
 
 function renderElements(taskList) {
   const htmlList = document.querySelector(".tasks");
@@ -67,10 +79,9 @@ function renderElements(taskList) {
 
 renderElements(tasks);
 
-const valor = {
+const value = {
   title: '',
   type: '',
-
 }
 
 const buttonAdd = document.querySelector('#btnSubmit');
@@ -81,15 +92,14 @@ buttonAdd.addEventListener('click', function (event) {
   const valueImput = event.target.form.elements.input_title.value
   const valueSelect = event.target.form.elements.input_priority.value
 
-  valor.title = valueImput;
-  valor.type = valueSelect;
+  value.title = valueImput;
+  value.type = valueSelect;
 
-  tasks.push(valor);
+  tasks.push(value);
   renderElements(tasks);
   //console.log(event)
   //event.target.form.elements.input_title.value
   //event.target.form.elements.input_priority.value
 })
-
 
 
