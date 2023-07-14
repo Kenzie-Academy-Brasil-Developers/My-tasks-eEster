@@ -20,7 +20,6 @@ function createCard(taskInfo) {
   const taskTitle = document.createElement("span");
   const taskDescription = document.createElement("p");
 
-
   if (taskInfo.type === "Urgente") {
     taskTitle.classList.add('span-urgent')
 
@@ -30,7 +29,6 @@ function createCard(taskInfo) {
   } else if (taskInfo.type === "Prioritário") {
     taskTitle.classList.add('span-priority')
   }
-
 
   // Adicionando o titulo da tarefa como texto do paragrafo
   taskDescription.innerText = taskInfo.title;
@@ -42,19 +40,12 @@ function createCard(taskInfo) {
   // Criando botão para deletar tarefa
   const buttonDelete = document.createElement("button");
 
+  // Adicionando evento de deletar para o botão de delete
   buttonDelete.addEventListener('click', function () {
-
-    for (let i = 0; i < tasks.length; i++) {
-    
-    
-      const index =tasks.indexOf(taskInfo);
-
-      tasks.splice(index,i);
-
-      renderElements(tasks);
-    }
+    const index = tasks.indexOf(taskInfo);
+    tasks.splice(index, 1);
+    renderElements(tasks);
   })
-
 
   // Adicionando icone ao botão
   buttonDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
@@ -79,27 +70,23 @@ function renderElements(taskList) {
 
 renderElements(tasks);
 
-const value = {
-  title: '',
-  type: '',
-}
-
+// Chamando o botão de adicionar tarefa na lista
 const buttonAdd = document.querySelector('#btnSubmit');
 
+// Adicionando evento ao botão de adicionar tarefa na lista
 buttonAdd.addEventListener('click', function (event) {
 
   event.preventDefault();
   const valueImput = event.target.form.elements.input_title.value
   const valueSelect = event.target.form.elements.input_priority.value
 
-  value.title = valueImput;
-  value.type = valueSelect;
+  const value = {
+    title: valueImput,
+    type: valueSelect,
+  }
 
   tasks.push(value);
   renderElements(tasks);
-  //console.log(event)
-  //event.target.form.elements.input_title.value
-  //event.target.form.elements.input_priority.value
 })
 
 
